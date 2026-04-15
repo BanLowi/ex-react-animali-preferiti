@@ -24,19 +24,26 @@
         <div class="lista-animali"></div>
         <script type="text/babel">
             const { createRoot } = ReactDOM;
-            const animals = ["Cane", "Gatto", "Topo"];
+            const { useState } = React;
+            const animals = ["Coniglio", "Anatra", "Topo"];
+            const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
 
             const ReactApp = () => {
+
+                const [anim, setAnim] = useState(animals);
+
+                const addAnimal = () => setAnim([...anim, animalsChoices[Math.floor(Math.random() * animalsChoices.length)]]);
 
                 return (
                     <>
                         <details>
-                            <summary>Lista Animali</summary>
+                            <summary>Animali</summary>
                             <ul>
                                 {
-                                    animals.map(a => <li>{a}</li>)
+                                    anim.map((a, index) => <li key={index}>{a}</li>)
                                 }
                             </ul>
+                            <button onClick={addAnimal}> Aggiungi Animali</button>
                         </details>
                     </>
                 )
