@@ -22,6 +22,32 @@
             <img src="https://picsum.photos/400/300" alt="Immagine Casuale">
         </figure>
         <div class="lista-animali"></div>
+        <script type="text/babel">
+            const { createRoot } = ReactDOM;
+            const animals = ["Cane", "Gatto", "Topo"];
+
+            const ReactApp = () => {
+
+                return (
+                    <>
+                        <details>
+                            <summary>Lista Animali</summary>
+                            <ul>
+                                {
+                                    animals.map(a => <li>{a}</li>)
+                                }
+                            </ul>
+                        </details>
+                    </>
+                )
+            }
+
+            const listaAnimaliEl = document.querySelector(".lista-animali")
+            const root = createRoot(listaAnimaliEl);
+            root.render(<ReactApp />)
+
+
+        </script>
     </main>
     <footer>
         <p>Creato con amore da... un collega sbadato! 🐾</p>
