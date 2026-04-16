@@ -32,7 +32,7 @@
                 title,
                 content,
                 show = false,
-                onClose = () => { setShowMod(false) },
+                onClose = () => { },
                 onConfirm = () => { }
             }) {
                 return show && ReactDOM.createPortal(
@@ -56,6 +56,7 @@
                 const addAnimal = () => {
                     setAnim([...anim, input])
                     setShowMod(false)
+                    setInput(``)
                 };
 
 
@@ -73,6 +74,7 @@
                                 title="Vuoi aggiungere un animale?"
                                 content={<input type="text" value={input} onChange={(e) => { setInput(e.target.value) }} />}
                                 show={showMod}
+                                onClose={() => { setShowMod(false) }}
                                 onConfirm={addAnimal} />
                         </details>
                     </>
