@@ -23,16 +23,41 @@
         </figure>
         <div class="lista-animali"></div>
         <script type="text/babel">
-            const { createRoot } = ReactDOM;
+
             const { useState } = React;
             const animals = ["Coniglio", "Anatra", "Topo"];
             const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
 
+            function Modal({
+                title,
+                content,
+                show = false,
+                onClose = () => { setShowMod(false) },
+                onConfirm = () => { }
+            }) {
+                return show && ReactDOM.createPortal(
+                    <div className="modal-container">
+                        <div className="modal">
+                            <h2>{title}</h2>
+                            {content}
+                            <button onClick={onClose}>Annulla</button>
+                            <button onClick={onConfirm}>Conferma</button>
+                        </div>
+                    </div>,
+                    document.body
+                )
+            }
+
             const ReactApp = () => {
-
+                const [input, setInput] = useState(``);
                 const [anim, setAnim] = useState(animals);
+                const [showMod, setShowMod] = useState(false);
 
-                const addAnimal = () => setAnim([...anim, animalsChoices[Math.floor(Math.random() * animalsChoices.length)]]);
+                const addAnimal = () => {
+                    setAnim([...anim, input])
+                    setShowMod(false)
+                };
+
 
                 return (
                     <>
@@ -43,17 +68,24 @@
                                     anim.map((a, index) => <li key={index}>{a}</li>)
                                 }
                             </ul>
-                            <button onClick={addAnimal}> Aggiungi Animali</button>
+                            <button onClick={() => { setShowMod(true) }}> Aggiungi Animali</button>
+                            <Modal
+                                title="Vuoi aggiungere un animale?"
+                                content={<input type="text" value={input} onChange={(e) => { setInput(e.target.value) }} />}
+                                show={showMod}
+                                onConfirm={addAnimal} />
                         </details>
                     </>
                 )
             }
 
+        </script>
+
+        <script type="text/babel">
+            const { createRoot } = ReactDOM;
             const listaAnimaliEl = document.querySelector(".lista-animali")
             const root = createRoot(listaAnimaliEl);
             root.render(<ReactApp />)
-
-
         </script>
     </main>
     <footer>
