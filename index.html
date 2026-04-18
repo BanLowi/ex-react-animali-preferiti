@@ -74,7 +74,7 @@
                                 title="Vuoi aggiungere un animale?"
                                 content={<input type="text" value={input} onChange={(e) => { setInput(e.target.value) }} />}
                                 show={showMod}
-                                onClose={() => { setShowMod(false) }}
+                                onClose={() => { setShowMod(false), setInput(``) }}
                                 onConfirm={addAnimal} />
                         </details>
                     </>
